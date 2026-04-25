@@ -28,6 +28,10 @@ const videoSchema = new Schema<iVideo>(
       type: String,
       required: true,
     },
+    videoUrl: {
+      type: String,
+      required: true,
+    },
     thumbnailUrl: {
       type: String,
       required: true,

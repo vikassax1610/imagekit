@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
         { status: 400 },
       );
     }
-     = await User.create({
+    await User.create({
       email,
       password,
     });
