@@ -36,7 +36,6 @@ export const authOptions: NextAuthOptions = {
           if (!isValid) {
             throw new Error("Invalid password");
           }
-          9;
           return {
             id: user._id.toString(),
             email: user.email,
@@ -70,5 +69,5 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
-  secret: process.env.NEXT_AUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
 };

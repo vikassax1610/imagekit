@@ -10,10 +10,12 @@ export default withAuth(
         const { pathname } = req.nextUrl;
         if (
           pathname.startsWith("/api/auth") ||
+          pathname === "/api/register" ||
           pathname === "/login" ||
           pathname === "/register"
         )
           return true;
+
         if (pathname === "/" || pathname.startsWith("/api/videos")) return true;
         return !!token; // this is work like this if(!token) return false
       },
