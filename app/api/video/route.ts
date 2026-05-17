@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
     if (!session) {
-      return NextResponse.json({ error: "authorized user" }, { status: 401 });
+      return NextResponse.json({ error: "Unauthorized user" }, { status: 401 });
     }
     await connectToDatabase();
     const body: iVideo = await request.json();

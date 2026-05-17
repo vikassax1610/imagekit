@@ -21,7 +21,7 @@ export default function Login() {
     if (response?.error) {
       alert("Email and Password is invalid");
     } else {
-      router.push("/");
+      router.push("/feed");
     }
   };
   return (

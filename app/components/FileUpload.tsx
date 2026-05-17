@@ -1,13 +1,6 @@
 "use client"; // This component must be a client component
-
-import {
-  ImageKitAbortError,
-  ImageKitInvalidRequestError,
-  ImageKitServerError,
-  ImageKitUploadNetworkError,
-  upload,
-} from "@imagekit/next";
-import { useRef, useState } from "react";
+import { upload } from "@imagekit/next";
+import { useState } from "react";
 
 interface FileUploadProps {
   onSuccess: (res: any) => void;
@@ -49,27 +42,32 @@ const FileUpload = ({ onSuccess, onProgress, fileType }: FileUploadProps) => {
         fileName: file.name,
         onProgress: (event) => {
           if (event.lengthComputable && onProgress) {
-            const percent = (event.loaded / event.total) * 100;
+            const percent = Math.round((event.loaded / event.total) * 100);
+            onProgress(percent);
           }
         },
       });
       onSuccess(res);
     } catch (error) {
-      console.error("upload failed:", error);
+      console.error("Upload failed:", error);
+      setError("Upload failed. Please try again.");
     } finally {
       setUploading(false);
     }
   }
   return (
-    <>
+    <div className="space-y-2">
+      {" "}
       <input
         type="file"
         accept={fileType === "video" ? "video/*" : "image/*"}
         onChange={handleFileChange}
-      />
-      {uploading && <span>Loading...</span>}
-    </>
+        disabled={uploading}
+        className="w-full rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2 text-white file:mr-4 file:rounded-md file:border-0 file:bg-red-600 file:px-4 file:py-2 file:text-white hover:file:bg-red-700"
+      />{" "}
+      {uploading && <p className="text-sm text-blue-400">Uploading...</p>}{" "}
+      {error && <p className="text-sm text-red-500">{error}</p>}{" "}
+    </div>
   );
 };
-
 export default FileUpload;
